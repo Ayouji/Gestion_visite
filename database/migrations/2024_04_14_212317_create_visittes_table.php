@@ -15,13 +15,13 @@ return new class extends Migration
             $table->unsignedBigInteger('visite_id')->primary()->autoIncrement();
             $table->unsignedBigInteger('commercial_id');
             $table->unsignedBigInteger('client_id');
-            $table->unsignedBigInteger('contact_id');
-            $table->dateTime('date_start');
+            $table->string('result_visite');
+            $table->date('date_start');
+            $table->date('date_h');
             $table->string('type_visite');
             $table->string('objectif');
             $table->foreign('commercial_id')->references('commercial_id')->on('commercials');
             $table->foreign('client_id')->references('client_id')->on('clients');
-            $table->foreign('contact_id')->references('contact_id')->on('contactes');
             $table->timestamps();
         });
     }
