@@ -5,30 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Resulte;
 use App\Models\Visitte;
 use Illuminate\Http\Request;
+use Symfony\Contracts\Service\Attribute\Required;
 
 use function Laravel\Prompts\alert;
 
 class ResultController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
         $visite_id = $request->visite_id;
@@ -45,41 +28,43 @@ class ResultController extends Controller
             return redirect()->route('calendar.index')->with('ajouter', 'résult ajouté avec succès');
         }
     }
-    
-    
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function store_2(Request $request)
     {
-        //
+        //$etat = $request->input('etat');
+        $visite_id = $request->visite_id;
+        $existingResult = Resulte::where('visite_id', $visite_id)->first();
+        //dd($visite_id);  
+        if($existingResult){
+            return redirect()->route('calendar.index')->with('error', 'cette résult exist déja');
+        }
+        else{
+            $result = new Resulte();
+            $result->etat = 'non';
+            $result->comment = '-';
+            $result->type_result = '-';
+            $result->visite_id = $request->input('visite_id');
+            //dd($result);
+            $result->save();
+            return redirect()->route('calendar.index')->with('ajouter', 'résult ajouté avec succès mais etat non');
+        }
     }
+    
+  
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
-    {
-        $result = Visitte::find($id);
-        $result->date_start = $request->input('date_start');
-        $result->date_h = $request->input('date_h');
-        $result->update();
-        return redirect()->route('calendar.index')->with('update', 'Update visite avec succès');;
-    }
+        {
+                $visite = Visitte::find($id);
+                if (!$visite) {
+                    return redirect()->route('calendar.index')->with('error', 'La visite n\'existe pas');
+                }
+                $newVisite = $visite->replicate();
+                $visite->date_start = $request->input('date_start');
+               // $visite->date_start = $newDateStart;
+                //$eventColoor = 'blue';
+                $visite->save();
+                $newVisite->save();
+                return redirect()->route('calendar.index')->with('success', 'La visite a été modifiée avec succès');
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+
 }

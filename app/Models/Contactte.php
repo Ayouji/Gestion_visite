@@ -9,4 +9,7 @@ class Contactte extends Model
 {
     use HasFactory;
     protected $primarykey = 'contact_id';
+    public function client(){
+        return $this->belongsTo(Client::class,'client_id');
+    }
 }

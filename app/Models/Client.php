@@ -14,4 +14,8 @@ class Client extends Model
     {
         return $this->hasMany(Visitte::class);
     }
+    public function contactte():HasMany
+    {
+        return $this->hasMany(Contactte::class);
+    }
 }

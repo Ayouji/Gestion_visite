@@ -14,6 +14,7 @@ class Visitte extends Model
     //protected $primarykey = 'visite_id';
     protected $fillable = [
         'client_id',
+        'contact_id',
         'commercial_id',
         'objectif',
         'date_start',
