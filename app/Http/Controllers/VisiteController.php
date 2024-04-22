@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Commercial;
 use App\Models\Visitte;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class VisiteController extends Controller
 {
@@ -25,6 +26,7 @@ class VisiteController extends Controller
     }
     public function index()
     {   
+        
             $events = array();
             $calclient = Client::with('contactte')->get();
 

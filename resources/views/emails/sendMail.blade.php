@@ -8,8 +8,7 @@
 </head>
 <body>  
 
-    {{-- <h1>{{$mailData['title']}}</h1>
-    <p>{{$mailData['body']}}</p> --}}
+    
     <p>Cher ,{{$mailData['nom']}}</p>
     
     <p>Nous sommes ravis de vous féliciter pour votre réussite exceptionnelle ! Votre travail acharné, votre dévouement et votre persévérance ont porté leurs fruits, et nous sommes extrêmement fiers de vous.</p>

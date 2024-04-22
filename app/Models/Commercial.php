@@ -9,4 +9,12 @@ class Commercial extends Model
 {
     use HasFactory;
     protected $primarykey = 'commercial_id';
+    protected $fillable = [
+        'nom',
+        'prenom',
+        'email',
+        'tel',
+        'adress',
+        'password'
+    ];
 }

@@ -24,10 +24,6 @@ class MailController extends Controller
             'body' => 'this is for testing email in laravel',
         ];
         Mail::to($emails)->send(new SendMail($mailData));
-        
-        //return;
-        //dd("Email is Sent.");
-        return redirect()->route('calendar.index');
-
+        return redirect()->back();
     }
 }

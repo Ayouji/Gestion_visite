@@ -60,10 +60,10 @@ class ResultController extends Controller
                 $newVisite = $visite->replicate();
                 $visite->date_start = $request->input('date_start');
                // $visite->date_start = $newDateStart;
-                //$eventColoor = 'blue';
+                $eventColor = 'blue';
                 $visite->save();
                 $newVisite->save();
-                return redirect()->route('calendar.index')->with('success', 'La visite a été modifiée avec succès');
+                return redirect()->route('calendar.index',$eventColor)->with('success', 'La visite a été modifiée avec succès');
         }
 
 

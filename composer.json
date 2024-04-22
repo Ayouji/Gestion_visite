@@ -7,6 +7,8 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.0",
+        "laravel/installer": "^5.7",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9"
     },
     "require-dev": {

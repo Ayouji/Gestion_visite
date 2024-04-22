@@ -131,9 +131,7 @@
             }
 
         });
-        
         var calendr = @json($events);
-
         $('#calendar').fullCalendar({
             header: {
                 left : 'prev, next today',
