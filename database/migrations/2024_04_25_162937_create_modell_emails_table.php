@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clients', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->primary()->autoIncrement();
-            $table->string('nom');
-            $table->string('tel', 10);
-            $table->string('adress');
-            $table->string('email');
+        Schema::create('modell_emails', function (Blueprint $table) {
+            $table->unsignedBigInteger('id')->primary();
+            $table->string('type_message');
+            $table->string('message', 5000);
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('modell_emails');
     }
 };

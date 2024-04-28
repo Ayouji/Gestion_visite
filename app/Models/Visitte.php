@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Visitte extends Model
@@ -15,7 +14,7 @@ class Visitte extends Model
     protected $fillable = [
         'client_id',
         'contact_id',
-        'commercial_id',
+        'admin_id',
         'objectif',
         'date_start',
         'type_visite',
@@ -24,5 +23,9 @@ class Visitte extends Model
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
+    }
+    public function admin():BelongsTo
+    {
+        return $this->belongsTo(Admin::class);
     }
 }

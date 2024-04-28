@@ -4,12 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Commercial extends Model
+class Admin extends Model
 {
     use HasFactory;
-    protected $primarykey = 'commercial_id';
+    public function isAdmin()
+        {
+            return $this->role === 'admin'; 
+        }
     protected $fillable = [
+        'admin',
         'nom',
         'prenom',
         'email',
@@ -17,4 +22,8 @@ class Commercial extends Model
         'adress',
         'password'
     ];
+    public function visite():HasMany
+    {
+        return $this->hasMany(Visitte::class);
+    }
 }

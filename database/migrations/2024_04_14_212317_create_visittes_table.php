@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('visittes', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->primary()->autoIncrement();
-            $table->unsignedBigInteger('commercial_id');
+            $table->unsignedBigInteger('admin_id');
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('contact_id');
             $table->date('date_start');
             $table->time('date_h');
             $table->string('type_visite');
             $table->string('objectif');
-            $table->foreign('commercial_id')->references('commercial_id')->on('commercials');
+            $table->foreign('admin_id')->references('id')->on('admins');
             $table->foreign('client_id')->references('id')->on('clients');
             $table->foreign('contact_id')->references('contact_id')->on('contacttes');
             $table->timestamps();

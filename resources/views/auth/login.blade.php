@@ -2,33 +2,34 @@
 
 @section('title', 'Register')
 @section('content')
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-</head>
-@error('fail')
-        <span class="text-danger">{{$message}}</span>
-@enderror
-<body>
-    <form action="{{route('auth.store')}}" method="post">
-        @csrf
-        <label for="">Email :</label>
-        <input type="email" name="email">
-            @error('email')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
-            <br>
-        <label for="">Password :</label>
-        <input type="password" name="password">
-            @error('password')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
-            <br>
-        <input type="submit" value="login">
-    </form>
-</body>
-</html>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            @if(session('fail'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('fail') }}
+                </div>
+            @endif
+            <form action="{{ route('auth.login') }}" method="post">
+                @csrf
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email :</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                    @error('email')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password :</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                    @error('password')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <a href="{{ url('register') }}" class="btn btn-link">Register</a>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection

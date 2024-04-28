@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('type_result');
             $table->string('comment');
             $table->unsignedBigInteger('visite_id');
+            $table->unsignedBigInteger('admin_id');
             $table->foreign('visite_id')->references('id')->on('visittes');
+            $table->foreign('admin_id')->references('id')->on('admins');
             $table->timestamps();
         });
     }

@@ -14,16 +14,18 @@ class MailController extends Controller
 {
     public function store(Request $request)
     {
+        //dd($request->message);
         $emails = $request->input('email');
+        $message = $request->input('message');
         $emailCLient = Client::where('email',$emails)->first();
-        //dd($emailCLient);
 
         $mailData = [
             'nom' => $emailCLient->nom,
             'title' => 'email from hassan',
-            'body' => 'this is for testing email in laravel',
+            'body' => $message,
         ];
+
         Mail::to($emails)->send(new SendMail($mailData));
         return redirect()->back();
-    }
+    } 
 }

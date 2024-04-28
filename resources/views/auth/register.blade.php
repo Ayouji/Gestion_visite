@@ -2,54 +2,67 @@
 
 @section('title', 'Register')
 @section('content')
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-</head>
-<body>
-    <form action="{{route('auth.register')}}" method="post">
-        @csrf
-        <label for="">Nom :</label>
-        <input type="text" name="nom">
-        @error('nom')
-            <span class="text-danger">{{$message}}</span>
-        @enderror
-        <br>
-        <label for="">Prenom :</label>
-        <input type="text" name="prenom">
-        @error('prenom')
-            <span class="text-danger">{{$message}}</span>
-        @enderror
-        <br>
-        <label for="">Tel :</label>
-        <input type="text" name="tel">
-        @error('tel')
-            <span class="text-danger">{{$message}}</span>
-        @enderror
-        <br>
-        <label for="">Adress :</label>
-        <input type="text" name="adress">
-        @error('adress')
-            <span class="text-danger">{{$message}}</span>
-        @enderror
-        <br>
-        <label for="">Email :</label>
-        <input type="email" name="email">
-        @error('email')
-            <span class="text-danger">{{$message}}</span>
-        @enderror
-        <br>
-        <label for="">Password :</label>
-        <input type="password" name="password">
-        @error('password')
-            <span class="text-danger">{{$message}}</span>
-        @enderror
-        <br>
-        <input type="submit" value="Register">
-    </form>
-</body>
-</html>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            @if(session('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if(session('fail'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('fail') }}
+                </div>
+            @endif
+            <form action="{{ route('auth.store') }}" method="post">
+                @csrf
+                <div class="mb-3">
+                    <label for="nom" class="form-label">Nom :</label>
+                    <input type="text" class="form-control" id="nom" name="nom">
+                    @error('nom')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="prenom" class="form-label">Prénom :</label>
+                    <input type="text" class="form-control" id="prenom" name="prenom">
+                    @error('prenom')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="tel" class="form-label">Téléphone :</label>
+                    <input type="text" class="form-control" id="tel" name="tel">
+                    @error('tel')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="adress" class="form-label">Adresse :</label>
+                    <input type="text" class="form-control" id="adress" name="adress">
+                    @error('adress')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email :</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                    @error('email')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password :</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                    @error('password')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+                <a href="{{ url('/') }}" class="btn btn-link">Login</a>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('contact_id')->primary()->autoIncrement();
             $table->string('nom');
             $table->string('prenom');
-            $table->bigInteger('tel');
+            $table->string('tel', 10);
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients');
             $table->timestamps();

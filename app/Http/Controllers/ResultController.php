@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMail;
+use App\Models\Client;
 use App\Models\Resulte;
 use App\Models\Visitte;
 use Illuminate\Http\Request;
-use Symfony\Contracts\Service\Attribute\Required;
+use Illuminate\Support\Facades\Mail;
 
 use function Laravel\Prompts\alert;
 
@@ -13,7 +15,11 @@ class ResultController extends Controller
 {
     
     public function store(Request $request)
-    {
+    {   
+        $request->validate([
+            'comment'=> ['required'],
+            'type_result'=> ['required']
+        ]);
         $visite_id = $request->visite_id;
         $existingResult = Resulte::where('visite_id', $visite_id)->first();
         if ($existingResult) {
@@ -24,6 +30,7 @@ class ResultController extends Controller
             $result->comment = $request->input('comment');
             $result->type_result = $request->input('type_result');
             $result->visite_id = $request->input('visite_id');
+            $result->admin_id = session()->get('id_login');
             $result->save();
             return redirect()->route('calendar.index')->with('ajouter', 'résult ajouté avec succès');
         }
@@ -42,6 +49,7 @@ class ResultController extends Controller
             $result->etat = 'non';
             $result->comment = '-';
             $result->type_result = '-';
+            $result->admin_id = session()->get('id_login');
             $result->visite_id = $request->input('visite_id');
             //dd($result);
             $result->save();
@@ -60,11 +68,25 @@ class ResultController extends Controller
                 $newVisite = $visite->replicate();
                 $visite->date_start = $request->input('date_start');
                // $visite->date_start = $newDateStart;
-                $eventColor = 'blue';
-                $visite->save();
+                //$eventColor = 'blue';
                 $newVisite->save();
-                return redirect()->route('calendar.index',$eventColor)->with('success', 'La visite a été modifiée avec succès');
+                $visite->save();
+                return redirect()->route('calendar.index')->with('success', 'La visite a été modifiée avec succès');
         }
-
+        /* public function send(Request $request)
+        {
+            $emails = $request->input('email');
+            $emailCLient = Client::where('email',$emails)->first();
+            //dd($emailCLient);
+    
+            $mailData = [
+                'nom' => $emailCLient->nom,
+                'title' => 'email from hassan',
+                'body' => 'this is for testing email in laravel',
+            ];
+            Mail::to($emails)->send(new SendMail($mailData));
+            return redirect()->back();
+        }
+ */
 
 }

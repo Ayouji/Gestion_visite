@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('commercials', function (Blueprint $table) {
-            $table->unsignedBigInteger('commercial_id')->primary()->autoIncrement();
+        Schema::create('admins', function (Blueprint $table) {
+            $table->unsignedBigInteger('id')->primary()->autoIncrement();
             $table->string('nom');
             $table->string('prenom');
-            $table->integer('tel');
+            $table->string('tel',10);
             $table->string('adress');
             $table->string('email');
             $table->string('password');
+            $table->boolean('admin')->default(0);
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('commercials');
+        Schema::dropIfExists('admins');
     }
 };

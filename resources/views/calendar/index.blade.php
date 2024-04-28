@@ -21,6 +21,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -46,22 +48,33 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                 
-
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Calendar title</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
                 <form>
-                    
-                    <select class="form-control" id='client_id' name="client_id" onchange="showContact()">
+                    <input type="text" id="search_input" class="form-control" placeholder="Search Client" oninput="searchClient()">
+                    <select class="form-control" id='client_id' name="client_id" onchange="showContact()" multiple>
                         <option value="" selected disabled>--- Client ---</option>
                         @foreach($calclient as $item)
                             <option value="{{$item->id}}">{{$item->nom}}</option>
                         @endforeach
                     </select>
-                </form>
+                
                 <script>
+                    function searchClient() {
+                        var searchQuery = document.getElementById('search_input').value.toLowerCase();
+                        var options = document.getElementById('client_id').getElementsByTagName('option');
+                        for (var i = 0; i < options.length; i++) {
+                            var optionText = options[i].text.toLowerCase();
+                            if (optionText.includes(searchQuery)) {
+                                options[i].style.display = ''; 
+                            } else {
+                                options[i].style.display = 'none';
+                            }
+                        }
+                    }
+            
                     function showContact() {
                         var selectedClientId = document.querySelector("#client_id").value;
                         var contacts = {
@@ -73,7 +86,7 @@
                                 ],
                             @endforeach
                         };
-                
+            
                         var selectedContacts = contacts[selectedClientId];
                         var selectContactElement = document.getElementById("contact_id");
                         selectContactElement.innerHTML = "";
@@ -86,29 +99,28 @@
                         });
                     }
                 </script>
-                
                 <br>
                 <select class="form-control" id='contact_id' name="contact_id">
                     <option value="" selected disabled>--- Contact ---</option>
                 </select>
-                
                 <br>
                 <input type="text" class="form-control" name="objectif" id="objectif" placeholder="objectif....">
-                
                 <br>
                 <input type="time" class="form-control" id="date_h" placeholder="date_h ....">
                 <br>
                 <select name="type_visite" class="form-control" id="type_visite">
-                    <option value="type_visite_1" class="form-control">type_visite 1</option>
-                    <option value="type_visite_2" class="form-control">type_visite 2</option>
-                    <option value="type_visite_3" class="form-control">type_visite 3</option>
-                    <option value="type_visite_4" class="form-control">type_visite 4</option>
+                    <option value="" selected disabled>--- type_visite ---</option>
+                    @foreach ($v_type as $item)
+                        <option value="{{ $item->type_visite }}">{{ $item->type_visite }}</option>
+                    @endforeach
                 </select>
-            </div>
+            
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" id="seveCalendar" class="btn btn-primary">Save</button>
             </div>
+        </form>
+        </div>
         </div>
     </div>
 </div>
@@ -140,7 +152,8 @@
             },
             events: calendr,
             selectable: true,
-            eventColor: '',
+
+            //eventColor: 'green',
             selectHelper: true,
             select: function(start, date_h, end, allDay){
                 $('#calendarModel').modal('toggle');
@@ -182,6 +195,7 @@
                         error: function(error){
                             console.error(error);
                         }
+
                     });
                 });
             },
@@ -193,9 +207,18 @@
                 var visiteId = event.id;
                //console.log(visiteId);
                 window.location.href = `/calendar/show/${visiteId}`;
-                
-                
-               }
+               },
+               eventMouseover: function(event, jsEvent, view) {
+                var startDate = moment(event.start).format('YYYY-MM-DD');
+                $(this).tooltip({
+                    title: "This is your title: " + event.title + '\n' + "Your start date: " + startDate,
+                    placement: 'top', 
+                    trigger: 'hover', 
+                    container: 'body' 
+                });
+}
+
+
         });
     });
 </script>
