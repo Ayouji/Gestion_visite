@@ -3,7 +3,7 @@
 @section('title', 'client')
 
 @section('content')
-    <div>
+    <div class="container">
         @if(session('succes'))
             <div class="alert alert-success">
                 {{ session('succes') }}
@@ -14,30 +14,38 @@
                 {{ session('error') }}
             </div>
         @endif
-        <form action="{{route('contact.store_2')}}" method="post">
+        <form action="{{ route('contact.store_2') }}" method="post">
             @csrf
-                <select class="form-control w-75 text-center" name="client_id" id="">
-                    <option value="" selected disabled>--- Selelct Client ---</option>
-                        @foreach($client as $item)
-                                <option value="{{$item->id}}">{{$item->nom}}</option>
-                        @endforeach
-                </select><br>
-                <label for="">Nom Contact</label>
+            <div class="form-group">
+                <select class="form-control mb-3" name="client_id">
+                    <option value="" selected disabled>--- Sélectionnez un client ---</option>
+                    @foreach($client as $item)
+                        <option value="{{ $item->id }}">{{ $item->nom }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label for="nom">Nom Contact</label>
                 @error('nom')
-                    <div class="text-danger">{{$message}}</div>
+                    <div class="text-danger">{{ $message }}</div>
                 @enderror
-                <input type="text" name="nom" placeholder="Nom client"><br>
-                <label for="">Prenom client</label>
+                <input type="text" class="form-control mb-3" name="nom" placeholder="Nom client">
+            </div>
+            <div class="form-group">
+                <label for="prenom">Prénom Contact</label>
                 @error('prenom')
-                    <div class="text-danger">{{$message}}</div>
+                    <div class="text-danger">{{ $message }}</div>
                 @enderror
-                <input type="text" name="prenom" placeholder="Prenom client"><br>
-                <label for="">Tel client</label>
+                <input type="text" class="form-control mb-3" name="prenom" placeholder="Prénom client">
+            </div>
+            <div class="form-group">
+                <label for="tel">Téléphone Contact</label>
                 @error('tel')
-                    <div class="text-danger">{{$message}}</div>
+                    <div class="text-danger">{{ $message }}</div>
                 @enderror
-                <input type="text" name="tel" placeholder="Tel client"><br>
-                <input type="submit" value="create">
+                <input type="text" class="form-control mb-3" name="tel" placeholder="Téléphone client">
+            </div>
+            <button type="submit" class="btn btn-primary mb-3">Créer</button>
         </form>
     </div>
 @endsection

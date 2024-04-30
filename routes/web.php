@@ -6,7 +6,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\VisiteController;
-use App\Http\Middleware\Isadmin;
+use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsLoged;
 use App\Http\Middleware\Logged;
 use App\Http\Middleware\Result;
@@ -39,12 +39,11 @@ Route::middleware(Logged::class)->group(function() {
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/register', [AuthController::class, 'store'])->name('auth.store');
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
-
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard')->middleware(IsLoged::class);
-Route::get('/admin', [AuthController::class, 'admin'])->name('admin')->middleware(Isadmin::class);
+Route::get('/admin', [AuthController::class, 'admin'])->name('admin')->middleware(IsAdmin::class);
 
 // parti admin
-Route::middleware([Isadmin::class, IsLoged::class])->group(function() {
+Route::middleware(IsAdmin::class)->group(function() {
 Route::get('admin/commercial', [AdminController::class, 'index'])->name('admin.commercial'); 
 Route::get('admin/detail/{id}', [AdminController::class, 'show'])->name('admin.detail');
 Route::get('admin/client', [ClientController::class, 'index'])->name('admin.client');
@@ -53,5 +52,5 @@ Route::post('client/store', [ClientController::class, 'store'])->name('client.st
 Route::get('client/destroy/{id}', [ClientController::class, 'destroy']);
 Route::get('contact/create', [ClientController::class, 'contact'])->name('contact.create');
 Route::post('contact/store_2', [ClientController::class, 'store_2'])->name('contact.store_2');
-});
 
+});

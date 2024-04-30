@@ -10,6 +10,11 @@
                     {{ session('fail') }}
                 </div>
             @endif
+            @if(session('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('error') }}
+                </div>
+            @endif
             <form action="{{ route('auth.login') }}" method="post">
                 @csrf
                 <div class="mb-3">
