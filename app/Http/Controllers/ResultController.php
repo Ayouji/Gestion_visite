@@ -73,20 +73,5 @@ class ResultController extends Controller
                 $visite->save();
                 return redirect()->route('calendar.index')->with('success', 'La visite a été modifiée avec succès');
         }
-        /* public function send(Request $request)
-        {
-            $emails = $request->input('email');
-            $emailCLient = Client::where('email',$emails)->first();
-            //dd($emailCLient);
-    
-            $mailData = [
-                'nom' => $emailCLient->nom,
-                'title' => 'email from hassan',
-                'body' => 'this is for testing email in laravel',
-            ];
-            Mail::to($emails)->send(new SendMail($mailData));
-            return redirect()->back();
-        }
- */
 
 }

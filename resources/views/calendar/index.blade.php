@@ -41,7 +41,7 @@
             {{ session('update') }}
         </div>
     @endif
-
+    <div class="loader" style="display: none"></div>
     
 <!-- Modal -->
 <div class="modal fade" id="calendarModel" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -178,9 +178,16 @@
                             type_visite: type_visite
                             
                         },
+                        beforeSend : function(){
+                            $('.loader').show();
+                        },
+                        complete: function(){
+                            $('.loader').hide();
+                        },
                         success: function(response){
                             //console.log(response);
                             $('#calendarModel').modal('hide');
+                            // $('.loader').show();
                             $('#calendar').fullCalendar('renderEvent', {
                                 'id': response.id,
                                 'title': response.objectif,
@@ -204,6 +211,7 @@
                 /* location.reload(); */
             
             eventClick: function(event) {
+                $('.loader').show();
                 var visiteId = event.id;
                //console.log(visiteId);
                 window.location.href = `/calendar/show/${visiteId}`;

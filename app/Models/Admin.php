@@ -26,4 +26,8 @@ class Admin extends Model
     {
         return $this->hasMany(Visitte::class);
     }
+    public function resulte():HasMany
+    {
+        return $this->hasMany(Resulte::class);
+    }
 }

@@ -11,7 +11,7 @@
                         <label for="type_visite">Type de visite</label>
                         <select class="form-control" name="type_visite" id="type_visite">
                             <option value="" selected disabled>--- Sélectionnez un type de visite ---</option>
-                            @foreach($type_visite as $item)
+                            @foreach($type as $item)
                                 <option value="{{ $item->type_visite }}">{{ $item->type_visite }}</option>
                             @endforeach
                         </select>
@@ -35,6 +35,11 @@
                         var options = document.getElementById('admin_id').getElementsByTagName('option');
                         for (var i = 0; i < options.length; i++) {
                             var optionText = options[i].text.toLowerCase();
+                            if (optionText.includes(searchQuery)) {
+                                options[i].style.display = '';
+                            } else {
+                                options[i].style.display = 'none';
+                            }
                         }
                     }
                 </script>
@@ -50,26 +55,33 @@
                         <th>Email</th>
                         <th>Totel visite</th>
                         <th>Visite réaliser</th>
-                        <th></th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($search as $item)
-                    @if($item->admin->admin !== 1)
-                        <tr>
-                            <td>{{ $item->admin->id }}</td>
-                            <td>{{ $item->admin->nom }}</td>
-                            <td>{{ $item->admin->prenom }}</td>
-                            <td>{{ $item->admin->email }}</td>
-                            <td>{{$count}}</td>
-                            <td></td>
-                        </tr>
-                    @endif
-                    @empty
-                        <tr>
-                            <td colspan="6">Aucun résultat trouvé!</td>
-                        </tr>
-                    @endforelse
+                        @forelse ($admin_counts as $admin_id => $type_counts)
+                            @php
+                                $admin = \App\Models\Admin::find($admin_id);
+                            @endphp
+                            <tr>
+                                <td>{{ $admin->id }}</td>
+                                <td>{{ $admin->nom }}</td>
+                                <td>{{ $admin->prenom }}</td>
+                                <td>{{ $admin->email }}</td>
+                                <td>{{ count($search->where('admin_id', $admin_id)) }}</td>
+                                <td>
+                                    @foreach($type_counts as $type_visite => $count)
+                                        {{ $type_visite }}: {{ $count }}<br>
+                                    @endforeach
+                                </td>
+                                <td><a href="{{url('admin/detail/'.$admin->id)}}">Detail</a></td>
+                            </tr>
+                            @empty
+                           <tr>
+                                <td colspan="7">Aucun résultat trouvé!</td>
+                            </tr> 
+                        @endforelse
+
                 </tbody>
             </table>
         </div>

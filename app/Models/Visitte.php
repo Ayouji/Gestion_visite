@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Visitte extends Model
@@ -27,5 +28,9 @@ class Visitte extends Model
     public function admin():BelongsTo
     {
         return $this->belongsTo(Admin::class);
+    }
+    public function resulte():HasMany
+    {
+        return $this->hasMany(Resulte::class);
     }
 }
