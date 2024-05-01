@@ -22,7 +22,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">Formulaire de Visite</div>
-    
+                    <div class="loader" style="display: none"></div>
                     <div class="card-body">
                         <a href="{{ route('calendar.index') }}" class="btn btn-primary mb-3">Retour au calendrier</a>
     
@@ -108,9 +108,11 @@
                 }
                 $(document).ready(function() {
                 $('#buttonSeve').click(function() {
-                    $('#sendEmail').click();
+                    
                 });
-
+                $('#sendEmail').click(function(){
+                    $('.loader').show();
+                });
                 $('input[type="checkbox"]').change(function() {
                     if ($(this).prop("checked")) {
                         $("#form").show();

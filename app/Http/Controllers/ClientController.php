@@ -102,6 +102,6 @@ class ClientController extends Controller
     {
         $Delclient = Client::findOrfail($id);
         $Delclient->delete();
-        return redirect()->back()->with('delete', 'suprimer avec suses !!');
+        return redirect()->back()->with('delete', 'suprimer avec susses !!');
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\ResultController;
@@ -52,5 +53,6 @@ Route::post('client/store', [ClientController::class, 'store'])->name('client.st
 Route::get('client/destroy/{id}', [ClientController::class, 'destroy']);
 Route::get('contact/create', [ClientController::class, 'contact'])->name('contact.create');
 Route::post('contact/store_2', [ClientController::class, 'store_2'])->name('contact.store_2');
-
+Route::get('admin/chart', [ChartController::class, 'chart']);
 });
+

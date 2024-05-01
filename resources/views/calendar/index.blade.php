@@ -224,9 +224,7 @@
                     trigger: 'hover', 
                     container: 'body' 
                 });
-}
-
-
+                }
         });
     });
 </script>
