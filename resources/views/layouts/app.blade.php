@@ -48,7 +48,7 @@
                                 
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Mon Profil</a></li>
+                                <li><a class="dropdown-item" href="{{url('auth/profil/'.session('admin')->id)}}">Mon Profil</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{{ route('auth.logout') }}">Logout</a></li>
                             </ul>

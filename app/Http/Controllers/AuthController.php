@@ -83,14 +83,11 @@ class AuthController extends Controller
         }
         return view('dashboard', compact('admin'));
     }
-    /* public function profil(Request $request)
-    {
-        $admin = array();
-        if ($request->Session()->has('id_login')) {
-            $admin = Admin::where('id', '=', $request->Session()->get('id_login'))->first();
-        }
-        return view('layouts.app', compact('admin'));
-    } */
+    public function profil(Request $request, string $id )
+    {  
+        $user = Admin::where('id', '=', $request->Session()->get('id_login'))->first();
+        return view('auth.profil', compact('user'));
+    }
     public function admin(Request  $request)
     {   
         $events = array();
@@ -125,4 +122,26 @@ class AuthController extends Controller
             return redirect('/');
         }
     }
+    public function update(Request $request, $id)
+{
+    // $request->validate([
+    //     'nom' => ['required', 'string'],
+    //     'prenom' => ['required', 'string'],
+    //     'email' => ['required', 'string', 'email'],
+    //     'tel' => ['required', 'string', 'max:10'], 
+    //     'adress' => ['required', 'string'],
+    //     'image' => ['nullable', 'image'], 
+    // ]);
+    $user = Admin::findOrFail($id);
+    $imagePath = $request->file('image')->store('images', 'public');
+    $user->nom = $request->nom;
+    $user->prenom = $request->prenom;
+    $user->email = $request->email;
+    $user->tel = $request->tel;
+    $user->adress = $request->adress;
+    $user->image = $imagePath;
+    $user->save();
+    return redirect()->back()->with('success', 'Profil mis à jour avec succès.');
+}
+
 }
