@@ -15,7 +15,7 @@
                     {{ session('fail') }}
                 </div>
             @endif
-            <form action="{{ route('auth.store') }}" method="post">
+            <form action="{{ route('auth.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label for="nom" class="form-label">Nom :</label>
@@ -56,6 +56,13 @@
                     <label for="password" class="form-label">Password :</label>
                     <input type="password" class="form-control" id="password" name="password">
                     @error('password')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Photo :</label>
+                    <input type="file" class="form-control" id="image" name="image" >
+                    @error('image')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>

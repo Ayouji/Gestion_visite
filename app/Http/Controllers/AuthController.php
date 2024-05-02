@@ -29,6 +29,7 @@ class AuthController extends Controller
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
                 $request->session()->put('id_login', $user->id);
+                $request->session()->put('admin',$user);
                 $request->session()->put('isadmin', $user->admin);
 
                 return redirect('dashboard');
@@ -53,9 +54,10 @@ class AuthController extends Controller
             'email' => ['required','string','email'],
             'tel' => ['required', 'max: 10'], 
             'adress' => ['required'],
-            'password' => ['required']
+            'password' => ['required'],
+            'image' => ['required','image'],
         ]);
-
+        $imagePath = $request->file('image')->store('images', 'public');
         $user = new Admin();
         $user->nom = $request->nom;
         $user->prenom = $request->prenom;
@@ -63,7 +65,8 @@ class AuthController extends Controller
         $user->adress = $request->adress;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        //dd($user);
+        $user->image = $imagePath;
+        // dd($user);
         $result = $user->save();
         if ($result) {
             return back()->with('success', 'registred successfuly');
@@ -80,7 +83,14 @@ class AuthController extends Controller
         }
         return view('dashboard', compact('admin'));
     }
-
+    /* public function profil(Request $request)
+    {
+        $admin = array();
+        if ($request->Session()->has('id_login')) {
+            $admin = Admin::where('id', '=', $request->Session()->get('id_login'))->first();
+        }
+        return view('layouts.app', compact('admin'));
+    } */
     public function admin(Request  $request)
     {   
         $events = array();

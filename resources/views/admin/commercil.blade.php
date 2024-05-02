@@ -46,6 +46,9 @@
                 <button type="submit" class="btn btn-primary">Rechercher</button>
             </form>
             <h3 class="mb-3">Liste des commerciaux</h3>
+            <div class="d-flex justify-content-end">
+                <a href="{{url('admin/chart')}}">Visite chart</a>
+            </div>
             <table class="table table-bordered table-striped text-center">
                 <thead>
                     <tr>
@@ -84,6 +87,7 @@
 
                 </tbody>
             </table>
+            
         </div>
     </div>
 @endsection

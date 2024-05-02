@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('adress');
             $table->string('email');
             $table->string('password');
+            $table->string('image');
             $table->boolean('admin')->default(0);
             $table->timestamps();
         });

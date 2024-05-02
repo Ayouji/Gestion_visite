@@ -34,7 +34,6 @@ class VisiteController extends Controller
     }
     public function index()
     {   
-        
             $events = array();
             $calclient = Client::with('contactte')->get();
 

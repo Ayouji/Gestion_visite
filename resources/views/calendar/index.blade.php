@@ -3,8 +3,6 @@
 
 
 @section('title' ,'Calendar' )
-
-
 @section('content')
 
 <!DOCTYPE html>

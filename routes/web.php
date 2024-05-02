@@ -42,6 +42,7 @@ Route::post('/register', [AuthController::class, 'store'])->name('auth.store');
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard')->middleware(IsLoged::class);
 Route::get('/admin', [AuthController::class, 'admin'])->name('admin')->middleware(IsAdmin::class);
+// Route::get('/profil', [AuthController::class, 'profil'])->name('auth.profil')->middleware(IsLoged::class);
 
 // parti admin
 Route::middleware(IsAdmin::class)->group(function() {
