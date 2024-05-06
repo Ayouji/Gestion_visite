@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('type_visites', function (Blueprint $table) {
             $table->unsignedInteger('id')->primary();
             $table->string('type_visite');
+            $table->string('color');
             $table->timestamps();
         });
     }

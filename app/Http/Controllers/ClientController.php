@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Contactte;
+use App\Models\Visitte;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -50,7 +51,7 @@ class ClientController extends Controller
         $client->adress = $request->adress;
         $client->email = $email;
         $client->save();
-        return redirect()->back()->with('succes', 'client has created !!');
+        return redirect()->route('admin.client')->with('succes', 'client has created !!');
     }
     public function store_2(Request $request)
     {
@@ -65,7 +66,6 @@ class ClientController extends Controller
         if($findNom){
             return redirect()->back()->with('error', 'contact exist déja !!');
         }
-        
         $contact = new Contactte();
         $contact->client_id = $request->client_id;
         $contact->nom = $request->nom;
@@ -74,34 +74,18 @@ class ClientController extends Controller
         $contact->save();
         return redirect()->back()->with('succes', 'contact has created !!');
     }
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
-    {
-        $Delclient = Client::findOrfail($id);
-        $Delclient->delete();
-        return redirect()->back()->with('delete', 'suprimer avec susses !!');
+{
+    $Delclient = Client::findOrFail($id);
+    $contacts = $Delclient->contactte()->pluck('contact_id');
+    $visites = Visitte::whereIn('contact_id', $contacts)->get();
+    if ($visites->isNotEmpty()) {
+        Visitte::whereIn('contact_id', $contacts)->delete();
     }
+    $Delclient->contactte()->delete();
+    $Delclient->delete();
+
+    return redirect()->back()->with('delete', 'Supprimé avec succès !!');
+}
+
 }

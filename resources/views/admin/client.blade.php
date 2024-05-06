@@ -8,6 +8,11 @@
             {{ session('delete') }}
         </div>
     @endif
+@if (session('succes'))
+<div class="alert alert-success">
+    {{ session('succes') }}
+</div>
+@endif
 <div>
     <a href="{{url('client/create')}}" class="btn btn-primary mb-3">Create Cleint </a>
 

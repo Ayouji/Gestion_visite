@@ -126,6 +126,11 @@
 <div class="container">
     <div class="row">
         <div class="col">
+            {{-- <div class="w-25">
+                <div class="bg-danger w-50 text-light px-3">1 visite</div>
+                <div class="bg-dark w-50  text-light px-3">fedelisation</div>
+                <div class="bg-success w-50  text-light px-3">Negosiation</div>
+            </div>             --}}
             <div class="text-center mt-5">
                 <div id="calendar"></div>
             </div>
@@ -196,6 +201,7 @@
                                 'type_visite': response.type_visite,
                             
                             });
+                            window.location.reload();
                         },
                         error: function(error){
                             console.error(error);
@@ -205,9 +211,6 @@
                 });
             },
             editable: true,
-            //pour actialiser la page
-                /* location.reload(); */
-            
             eventClick: function(event) {
                 $('.loader').show();
                 var visiteId = event.id;
@@ -223,7 +226,9 @@
                     container: 'body' 
                 });
                 }
+                
         });
+
     });
 </script>
 </body>

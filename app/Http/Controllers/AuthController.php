@@ -57,7 +57,12 @@ class AuthController extends Controller
             'password' => ['required'],
             'image' => ['required','image'],
         ]);
+        $email = $request->email;
         $imagePath = $request->file('image')->store('images', 'public');
+        $findemail = Admin::where('email', $email)->first();
+        if($findemail){
+            return redirect()->back()->with('fail', 'email exist déja !!');
+        }
         $user = new Admin();
         $user->nom = $request->nom;
         $user->prenom = $request->prenom;
@@ -119,6 +124,8 @@ class AuthController extends Controller
         if ($request->Session()->has('id_login')) {
             $request->Session()->pull('id_login');
             $request->Session()->pull('isadmin');
+            // $request->Session()->pull('admin');
+
             return redirect('/');
         }
     }

@@ -41,7 +41,13 @@ class VisiteController extends Controller
             $calendar = Visitte::where('admin_id', session()->get('id_login'))->get();
             $v_type = Type_visite::all();
             //$calendar = Visitte::with('client')->get();
-            foreach ($calendar as $calen){
+            foreach ($calendar as $calen) {
+                $color = null;
+                foreach ($v_type as $item) {
+                    if ($calen->type_visite == $item->type_visite) {
+                        $color = $item->color;
+                    }
+                }
                  $events [] = [
                     'id' => $calen->id,
                     'client_id' => $calen->client_id,
@@ -50,6 +56,7 @@ class VisiteController extends Controller
                     'start' => $calen->date_start,
                     'type_visite' => $calen->type_visite,
                     'date_h' => $calen->date_h,
+                    'color' => $color
     
                  ];
                  
