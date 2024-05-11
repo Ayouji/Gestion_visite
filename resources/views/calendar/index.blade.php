@@ -122,15 +122,16 @@
         </div>
     </div>
 </div>
+<div class="d-flex gap-2">
+    @foreach($v_type as $item)
+        <div style="border-radius: 50%; width: 35px;height: 35px; background-color: {{$item->color}}"></div>
+        <span>{{$item->type_visite}}</span>
+    @endforeach
+</div>
 
 <div class="container">
     <div class="row">
         <div class="col">
-            {{-- <div class="w-25">
-                <div class="bg-danger w-50 text-light px-3">1 visite</div>
-                <div class="bg-dark w-50  text-light px-3">fedelisation</div>
-                <div class="bg-success w-50  text-light px-3">Negosiation</div>
-            </div>             --}}
             <div class="text-center mt-5">
                 <div id="calendar"></div>
             </div>
@@ -214,8 +215,13 @@
             eventClick: function(event) {
                 $('.loader').show();
                 var visiteId = event.id;
-               //console.log(visiteId);
+                if(event.icon == '&#10004;' || event.icon == '&#10008;'){
+                    // confirm('test')
+                    // $('.loader').hide();
+                    window.location.href = `/calendar/detail/${visiteId}`
+                }else{
                 window.location.href = `/calendar/show/${visiteId}`;
+                }
                },
                eventMouseover: function(event, jsEvent, view) {
                 var startDate = moment(event.start).format('YYYY-MM-DD');
@@ -225,7 +231,10 @@
                     trigger: 'hover', 
                     container: 'body' 
                 });
-                }
+                },
+            eventRender: function(event, element) {
+                element.find('.fc-title').append("<br> " + event.icon);
+            }
                 
         });
 

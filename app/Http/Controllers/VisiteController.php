@@ -6,6 +6,7 @@ use App\Http\Middleware\Auth;
 use App\Models\Client;
 use App\Models\Admin;
 use App\Models\ModellEmail;
+use App\Models\Resulte;
 use App\Models\Ty_result;
 use App\Models\Type_visite;
 use App\Models\Visitte;
@@ -33,37 +34,53 @@ class VisiteController extends Controller
         
     }
     public function index()
-    {   
-            $events = array();
-            $calclient = Client::with('contactte')->get();
+            {   
+                $events = array();
+                $calclient = Client::with('contactte')->get();
+                $calendar = Visitte::where('admin_id', session()->get('id_login'))->get();
+                $v_type = Type_visite::all();
 
-            //dd($calclient);
-            $calendar = Visitte::where('admin_id', session()->get('id_login'))->get();
-            $v_type = Type_visite::all();
-            //$calendar = Visitte::with('client')->get();
-            foreach ($calendar as $calen) {
-                $color = null;
-                foreach ($v_type as $item) {
-                    if ($calen->type_visite == $item->type_visite) {
-                        $color = $item->color;
+                foreach ($calendar as $calen) {
+                    $color = null;
+                    foreach ($v_type as $item) {
+                        if ($calen->type_visite == $item->type_visite) {
+                            $color = $item->color;
+                            break; 
+                        }
+                    }
+                    $result = Resulte::where('visite_id', $calen->id)->first();
+                    //dd($result->etat == 'oui');
+                    if($result){
+                    if ($result->etat == 'oui') {
+                        $icon = '&#10004;'; 
+                    }
+                    elseif ($result->etat == 'non') {
+                        $icon = '&#10008;';
+                    } 
+                    else {
+                        $icon = '&#9201;'; 
                     }
                 }
-                 $events [] = [
-                    'id' => $calen->id,
-                    'client_id' => $calen->client_id,
-                    'contact_id' => $calen->contact_id,
-                    'title' => $calen->objectif,
-                    'start' => $calen->date_start,
-                    'type_visite' => $calen->type_visite,
-                    'date_h' => $calen->date_h,
-                    'color' => $color
-    
-                 ];
-                 
-            }
-           
-            return view('calendar.index', compact('events','calendar', 'calclient', 'v_type'));
-    }
+                else{
+                    $icon = '&#9201;'; 
+                }
+                    $events[] = [
+                        'id' => $calen->id,
+                        'client_id' => $calen->nom,
+                        'contact_id' => $calen->contact_id,
+                        'title' => $calen->objectif,
+                        'start' => $calen->date_start,
+                        'type_visite' => $calen->type_visite,
+                        'date_h' => $calen->date_h,
+                        'color' => $color,
+                        'icon' => $icon,
+                        'result' => $result
+                    ];
+                }
+            
+                return view('calendar.index', compact('events', 'calclient', 'v_type'));
+}
+
 
     public function store(Request $request)
     {   
@@ -102,6 +119,13 @@ class VisiteController extends Controller
                 
                 return view('calendar.show', compact('visite', 'result','model'));
             }
-
+            public function detail($id) {
+                $vresult = Resulte::with('visite')->where('visite_id', $id)->firstOrFail();
+                if (session()->get('id_login') !== $vresult->admin_id) {
+                    return redirect()->back()->with('error', 'Vous n\'êtes pas autorisé');
+                }
+                return view('calendar.detail', compact('vresult'));
+            }
+            
 
 }

@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 //Route::resource('calendar', VisiteController::class);
 Route::get('welcome', [VisiteController::class, 'inde2'])->name('welcome');
 Route::get('calendar/index', [VisiteController::class, 'index'])->name('calendar.index')->middleware(IsLoged::class);
+Route::get('calendar/detail/{id}', [VisiteController::class, 'detail'])->name('calendar.detail')->middleware(IsLoged::class);
 Route::get('calendar/show/{id}', [VisiteController::class, 'show'])->name('calendar.show')->middleware([Result::class, IsLoged::class]);
 Route::post('calendar', [VisiteController::class, 'store'])->name('calendar.store');
 Route::get('search', [VisiteController::class, 'search']);

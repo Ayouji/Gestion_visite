@@ -139,16 +139,18 @@ class AuthController extends Controller
     //     'adress' => ['required', 'string'],
     //     'image' => ['nullable', 'image'], 
     // ]);
-    $user = Admin::findOrFail($id);
-    $imagePath = $request->file('image')->store('images', 'public');
-    $user->nom = $request->nom;
-    $user->prenom = $request->prenom;
-    $user->email = $request->email;
-    $user->tel = $request->tel;
-    $user->adress = $request->adress;
-    $user->image = $imagePath;
-    $user->save();
-    return redirect()->back()->with('success', 'Profil mis à jour avec succès.');
-}
+        $user = Admin::findOrFail($id);
+        $user->nom = $request->nom;
+        $user->prenom = $request->prenom;
+        $user->email = $request->email;
+        $user->tel = $request->tel;
+        $user->adress = $request->adress;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+            $user->image = $imagePath;
+        }
+        $user->save();
+        return redirect()->back()->with('success', 'Profil mis à jour avec succès.');
+    }
 
 }

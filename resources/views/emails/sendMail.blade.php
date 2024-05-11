@@ -23,7 +23,7 @@
         {{$mailData['body']}}
     </pre>
     
-    <p>Bien cordialement,</p>
-    <p>Ayoujil</p>
+    <p>Bien cordialement</p>
+    <p>Ayoujil , Bouhou</p>
 </body>
 </html>

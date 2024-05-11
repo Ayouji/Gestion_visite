@@ -24,8 +24,6 @@ class MailController extends Controller
             'title' => 'email from hassan',
             'body' => $message,
         ];
-        
-
         Mail::to($emails)->send(new SendMail($mailData));
         return redirect()->back();
     } 

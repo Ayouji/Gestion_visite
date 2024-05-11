@@ -18,7 +18,7 @@
                         @method('PUT')
                         <div class="mb-3 w-100">
                             <input type="file" class="form-control-file text-right mr-5 w-75" id="image" name="image">
-                            <img src="{{Storage::url($user->image)}}" class="img-fluid" width="100px" alt="Profile Image">
+                            <img src="{{Storage::url($user->image) ?? ''}} " class="img-fluid" width="100px" alt="Profile Image">
                             
                         </div>
                         <div class="mb-3">
