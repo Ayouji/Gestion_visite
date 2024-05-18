@@ -25,7 +25,11 @@
                                     {{ session('error') }}
                                 </div>
                             @endif
-
+                            @if (session('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
 
                             <form action="{{ route('auth.login') }}" method="post">
                                 @csrf
@@ -45,6 +49,7 @@
                                 </div>
                                 
                                 <button class="btn " type="submit">Login</button>
+                                <a href="{{ route('auth.forgot') }}" class="">Forgot Password</a>
                                 <a href="{{ url('register') }}" class="btne btn-link ">Register</a>
                             </div>
                             </form>

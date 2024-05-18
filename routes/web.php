@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\VisiteController;
@@ -59,3 +60,7 @@ Route::post('contact/store_2', [ClientController::class, 'store_2'])->name('cont
 Route::get('admin/chart', [ChartController::class, 'chart']);
 });
 
+Route::get('/forgot_password', [ForgotController::class, 'forgot'])->name('auth.forgot');
+Route::post('/forgot_password', [ForgotController::class, 'forgetPassword'])->name('auth.forgotPassword');
+Route::get('/reset_password/{token}', [ForgotController::class, 'resetPassword'])->name('reset.password');
+Route::post('/reset_password', [ForgotController::class, 'resetPasswordPost'])->name('reset.passwordPost');
