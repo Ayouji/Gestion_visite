@@ -2,14 +2,15 @@
 
 @section('title', 'profil')
 @section('content')
-@if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+
 <div class="container">
     <div class="row justify-content-center align-items-center" style="height: 100vh;">
         <div class="col-md-6">
+             @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
             <div class="card">
                 <div class="card-body">
                     <h1 class="card-title text-center mb-4">Profil</h1>

@@ -3,6 +3,7 @@
 @section('title', 'Create Client')
 
 @section('content')
+</br></br></br>
 @if(session('delete'))
         <div class="alert alert-success">
             {{ session('delete') }}
@@ -13,12 +14,12 @@
     {{ session('succes') }}
 </div>
 @endif
-<div>
+<div class="">
+    
     <a href="{{url('client/create')}}" class="btn btn-primary mb-3">Create Cleint </a>
-
     <h4>La liste des client avec leurs contact :</h4>
-    <table class="table table-bordered table-striped text-center">
-        <thead>
+    <table class="table table-bordered table-striped text-center" >
+        <thead style="color: white ;background:rgb(54, 163, 253) " >
             <tr>
                 <th>ID</th>
                 <th>Nom</th>
@@ -30,7 +31,7 @@
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="bg-white" >
             @foreach ($client as $item)
             <tr>
                 <td>{{$item->id}}</td>

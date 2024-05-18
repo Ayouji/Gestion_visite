@@ -17,9 +17,11 @@
         <div class="alert alert-danger">
             {{ session('error') }}
         </div>
-    @endif<div class="container">
+    @endif
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
+                <br><br>
                 <div class="card">
                     <div class="card-header">Formulaire de Visite</div>
                     <div class="loader" style="display: none"></div>

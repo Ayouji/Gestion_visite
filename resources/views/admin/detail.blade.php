@@ -7,7 +7,9 @@
     {{-- <div>
         Nombre totale de result valider : {{$total ?? ''}}
     </div> --}}
-    <table class="table table-bordered table-striped text-center">
+    <br><br><br>
+        <a class="btn btn-primary mb-3" href="{{ url('admin/commercial') }} ">Return Admin</a>
+    <table class="table table-bordered table-striped text-center bg-white">
         <thead>
             <tr>
                 <th>ID</th>

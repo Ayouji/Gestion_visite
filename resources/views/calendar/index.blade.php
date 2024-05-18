@@ -24,6 +24,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </head>
 <body>
+    <br><br>
     @if(session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}
@@ -113,15 +114,16 @@
                     @endforeach
                 </select>
             
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div class="modal-footer d-flex justify-content-center">
                 <button type="button" id="seveCalendar" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </form>
         </div>
         </div>
     </div>
 </div>
+<br><br><br><br>
 <div class="d-flex gap-2">
     @foreach($v_type as $item)
         <div style="border-radius: 50%; width: 35px;height: 35px; background-color: {{$item->color}}"></div>
@@ -133,7 +135,7 @@
     <div class="row">
         <div class="col">
             <div class="text-center mt-5">
-                <div id="calendar"></div>
+                <div id="calendar" class="bg-white"></div>
             </div>
         </div>
     </div>

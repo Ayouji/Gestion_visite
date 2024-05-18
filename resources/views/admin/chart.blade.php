@@ -1,16 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <canvas id="chart"></canvas>
-            </div>
-                <div class="col-md-6">
-                    <canvas id="mychart"></canvas>
-                </div>
+
+<style>
+    .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-6 bg-white">
+            <canvas id="chart"></canvas>
+        </div>
+        <div class="col-md-6 bg-white">
+            <canvas id="mychart"></canvas>
         </div>
     </div>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         var ctx = document.getElementById('chart').getContext('2d');

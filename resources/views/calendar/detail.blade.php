@@ -9,8 +9,9 @@
             {{ session('error') }}
         </div>
     @endif
-
+<br><br><a href="{{ route('calendar.index') }}" class="btn btn-primary mb-3">Retour au calendrier</a>
     <div class="card">
+        
         <div class="card-header">
             <h3 class="mb-0">Détails de la Visite</h3>
         </div>

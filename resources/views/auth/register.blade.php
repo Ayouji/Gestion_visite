@@ -15,6 +15,7 @@
                     {{ session('fail') }}
                 </div>
             @endif
+            <br><br><br>
             <form action="{{ route('auth.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">

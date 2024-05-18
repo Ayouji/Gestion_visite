@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Contactte;
+use App\Models\Resulte;
 use App\Models\Visitte;
 use Illuminate\Http\Request;
 
@@ -74,18 +75,31 @@ class ClientController extends Controller
         $contact->save();
         return redirect()->back()->with('succes', 'contact has created !!');
     }
+    // public function destroy(string $id)
+    //     {
+    //         $Delclient = Client::findOrFail($id);
+    //         $contacts = $Delclient->contactte()->pluck('contact_id');
+    //         $visites = Visitte::whereIn('contact_id', $contacts)->get();
+    //         if ($visites->isNotEmpty()) {
+    //             Visitte::whereIn('contact_id', $contacts)->delete();
+    //         }
+    //         $Delclient->contactte()->delete();
+    //         $Delclient->delete();
+
+    //         return redirect()->back()->with('delete', 'Supprimé avec succès !!');
+    //     }
     public function destroy(string $id)
-{
-    $Delclient = Client::findOrFail($id);
-    $contacts = $Delclient->contactte()->pluck('contact_id');
-    $visites = Visitte::whereIn('contact_id', $contacts)->get();
-    if ($visites->isNotEmpty()) {
+    {
+        $delClient = Client::findOrFail($id);
+        $contacts = $delClient->contactte()->pluck('contact_id');
+        Resulte::whereIn('visite_id', function($query) use ($contacts) {
+            $query->select('id')->from('visittes')->whereIn('contact_id', $contacts);
+        })->delete();
         Visitte::whereIn('contact_id', $contacts)->delete();
+        $delClient->contactte()->delete();
+        $delClient->delete();
+    
+        return redirect()->back()->with('delete', 'Supprimé avec succès !!');
     }
-    $Delclient->contactte()->delete();
-    $Delclient->delete();
-
-    return redirect()->back()->with('delete', 'Supprimé avec succès !!');
-}
-
+    
 }

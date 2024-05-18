@@ -14,6 +14,7 @@
                 {{ session('error') }}
             </div>
         @endif
+        <br><br><br><br>
         <form action="{{ route('client.store') }}" method="post">
             @csrf
             <div class="form-group mb-3">
@@ -45,6 +46,7 @@
                 <input type="text" class="form-control mb-3" name="email" placeholder="Email client">
             </div>
             <button type="submit" class="btn btn-primary mb-3">Créer</button>
+            <a href="{{ url('admin/client') }}" >Retour au Client</a>
         </form>
     </div>
 @endsection

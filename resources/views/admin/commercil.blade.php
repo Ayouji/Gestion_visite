@@ -4,6 +4,7 @@
 
 @section('content')
     <div class="container">
+        <br><br><br>
         <div class="table-responsive">
             <form action="{{ route('admin.commercial') }}" method="get" class="mb-4">
                 <div class="form-row">
@@ -47,9 +48,9 @@
             </form>
             <h3 class="mb-3">Liste des commerciaux</h3>
             <div class="d-flex justify-content-end">
-                <a href="{{url('admin/chart')}}">Visite chart</a>
+                {{-- <a href="{{url('admin/chart')}}">Visite chart</a> --}}
             </div>
-            <table class="table table-bordered table-striped text-center">
+            <table class="table table-bordered table-striped text-center bg-white">
                 <thead>
                     <tr>
                         <th>ID</th>
