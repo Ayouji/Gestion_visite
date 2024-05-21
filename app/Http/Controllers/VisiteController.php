@@ -57,6 +57,10 @@ class VisiteController extends Controller
                     elseif ($result->etat == 'non') {
                         $icon = '&#10008;';
                     } 
+                    elseif ($result->etat == 'raporter') {
+                        $icon = '&#x2BAB;';
+                        $color = '#D4D9DA';
+                    }
                     else {
                         $icon = '&#9201;'; 
                     }

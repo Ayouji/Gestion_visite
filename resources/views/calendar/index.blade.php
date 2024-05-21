@@ -217,7 +217,7 @@
             eventClick: function(event) {
                 $('.loader').show();
                 var visiteId = event.id;
-                if(event.icon == '&#10004;' || event.icon == '&#10008;'){
+                if(event.icon == '&#10004;' || event.icon == '&#10008;' || event.icon == '&#x2BAB;'){
                     // confirm('test')
                     // $('.loader').hide();
                     window.location.href = `/calendar/detail/${visiteId}`

@@ -4,10 +4,39 @@
 
 @section('content')
 <div>
-    {{-- <div>
-        Nombre totale de result valider : {{$total ?? ''}}
-    </div> --}}
-    <br><br><br>
+    
+    <br><div class="container">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">Résultat validé</h5>
+                        <p class="card-text">{{$etatoui ?? '0'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-danger">Résultat non validé</h5>
+                        <p class="card-text">{{$etatnon ?? '0'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-warning">Résultat rapporté</h5>
+                        <p class="card-text">{{$etatrapor ?? '0'}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <br><br>
         <a class="btn btn-primary mb-3" href="{{ url('admin/commercial') }} ">Return Admin</a>
     <table class="table table-bordered table-striped text-center bg-white">
         <thead>
@@ -31,8 +60,10 @@
                 <td>{{$item->visite->objectif}}</td>
                 @if($item->etat === 'oui')
                     <td class="text-success">{{$item->etat}}</td>
-                @else
+                @elseif($item->etat === 'non')
                     <td class="text-danger">{{$item->etat}}</td>
+                @else
+                    <td class="text-warning">{{$item->etat}}</td>
                 @endif
                 <td>{{$item->type_result}}</td>
             </tr>

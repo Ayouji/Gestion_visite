@@ -49,8 +49,8 @@
                                 </div>
                                 
                                 <button class="btn " type="submit">Login</button>
+                                <a href="{{ url('register') }}" class="btne btn-link ">Register</a><br>
                                 <a href="{{ route('auth.forgot') }}" class="">Forgot Password</a>
-                                <a href="{{ url('register') }}" class="btne btn-link ">Register</a>
                             </div>
                             </form>
                         {{-- </div> --}}

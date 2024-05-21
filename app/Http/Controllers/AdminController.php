@@ -47,7 +47,10 @@ class AdminController extends Controller
     public function show(Request $request, string $id)
     {    
         $result = Resulte::with('visite')->where('admin_id', $id)->get();
-        return view('admin.detail', compact('result'));
+        $etatoui = $result->where('etat', 'oui')->count();
+        $etatnon = $result->where('etat', 'non')->count();
+        $etatrapor = $result->where('etat', 'raporter')->count();
+        return view('admin.detail', compact('result','etatoui','etatnon','etatrapor'));
     }
 
 }

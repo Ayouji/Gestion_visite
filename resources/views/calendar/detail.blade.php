@@ -37,7 +37,7 @@
                         </tr>
                         <tr>
                             <th class="font-weight-bold">Résultat (État):</th>
-                            <td class="@if($vresult->etat === 'oui') text-success @else text-danger @endif">{{$vresult->etat}}</td>
+                            <td class="@if($vresult->etat === 'oui') text-success @elseif($vresult->etat === 'non') text-danger @else text-warning @endif">{{$vresult->etat}}</td>
                         </tr>
                         <tr>
                             <th class="font-weight-bold">Type de Résultat:</th>

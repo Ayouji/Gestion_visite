@@ -60,17 +60,25 @@ class ResultController extends Controller
   
 
     public function update(Request $request, string $id)
-{
-    $events = array();
-    $visite = Visitte::find($id);
-    if (!$visite) {
-        return redirect()->route('calendar.index')->with('error', 'La visite n\'existe pas');
-    }
-    $newVisite = $visite->replicate();
-    $newVisite->date_start = $request->input('date_start');
-    $newVisite->save();
-    return redirect()->route('calendar.index')->with('success', 'La visite a été modifiée avec succès');
-}
+        {
+            //$events = array();
+            $visite = Visitte::find($id);
+            // $visite->etat = $request->input('etat');
+            if (!$visite) {
+                return redirect()->route('calendar.index')->with('error', 'La visite n\'existe pas');
+            }
+            $result = new Resulte();
+            $result->etat = 'raporter';
+            $result->comment = '-';
+            $result->type_result = '-';
+            $result->admin_id = session()->get('id_login');
+            $result->visite_id = $visite->id;
+            $newVisite = $visite->replicate();
+            $newVisite->date_start = $request->input('date_start');
+            $result->save();
+            $newVisite->save();
+            return redirect()->route('calendar.index')->with('success', 'La visite a été modifiée avec succès');
+        }
 
 
 }
